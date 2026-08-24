@@ -1,0 +1,46 @@
+<div class="mx-auto max-w-6xl p-4 md:p-6">
+  <header class="mb-6 flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <h1 class="text-2xl md:text-3xl font-bold text-stone-800">Painel de mesas</h1>
+      <p class="text-stone-600">Toque em uma mesa livre para abrir comanda, ou em uma ocupada para ver os itens.</p>
+    </div>
+    <button mat-stroked-button type="button" (click)="carregar()">
+      <mat-icon>refresh</mat-icon>
+      Atualizar
+    </button>
+  </header>
+
+  <div class="mb-5 flex flex-wrap gap-4 text-sm">
+    <span class="inline-flex items-center gap-2"><span class="h-3 w-3 rounded-full bg-emerald-500"></span> Livre</span>
+    <span class="inline-flex items-center gap-2"><span class="h-3 w-3 rounded-full bg-red-500"></span> Ocupada</span>
+    <span class="inline-flex items-center gap-2"><span class="h-3 w-3 rounded-full bg-amber-400"></span> Reservada</span>
+  </div>
+
+  @if (carregando) {
+    <div class="flex justify-center py-16">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else {
+    <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      @for (item of mesas; track item.mesa.id) {
+        <button
+          type="button"
+          class="mesa-card rounded-2xl p-5 text-left text-white shadow-md transition hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-stone-300"
+          [ngClass]="{
+            'bg-emerald-600': item.mesa.statusMesa === 'LIVRE',
+            'bg-red-600': item.mesa.statusMesa === 'OCUPADA',
+            'bg-amber-500': item.mesa.statusMesa === 'RESERVADA'
+          }"
+          (click)="selecionar(item)"
+        >
+          <p class="text-sm uppercase tracking-wide opacity-90">Mesa</p>
+          <p class="text-4xl font-bold leading-tight">{{ item.mesa.numero }}</p>
+          <p class="mt-2 text-sm font-medium">{{ item.mesa.statusMesa }}</p>
+          @if (item.comanda) {
+            <p class="mt-1 text-xs opacity-90">Comanda #{{ item.comanda.id }}</p>
+          }
+        </button>
+      }
+    </section>
+  }
+</div>

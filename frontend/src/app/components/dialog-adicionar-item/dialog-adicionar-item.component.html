@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Adicionar item</h2>
+
+<mat-dialog-content class="flex flex-col gap-3 pt-2 min-w-[280px]">
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Produto</mat-label>
+    <mat-select [formControl]="form.controls.produtoId">
+      @for (produto of data.produtos; track produto.id) {
+        <mat-option [value]="produto.id">
+          {{ produto.nome }} — {{ produto.preco | currency:'BRL':'symbol':'1.2-2':'pt' }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Quantidade</mat-label>
+    <input matInput type="number" min="1" [formControl]="form.controls.quantidade">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancelar()">Cancelar</button>
+  <button mat-flat-button color="primary" type="button" (click)="confirmar()">Adicionar</button>
+</mat-dialog-actions>

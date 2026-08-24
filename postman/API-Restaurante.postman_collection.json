@@ -1,0 +1,81 @@
+{
+  "info": {
+    "name": "API Restaurante",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      { "key": "username", "value": "admin", "type": "string" },
+      { "key": "password", "value": "admin123", "type": "string" }
+    ]
+  },
+  "item": [
+    {
+      "name": "1. Listar mesas",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/mesas"
+      }
+    },
+    {
+      "name": "2. Listar usuarios",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/usuarios"
+      }
+    },
+    {
+      "name": "3. Listar produtos",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/produtos"
+      }
+    },
+    {
+      "name": "4. Abrir comanda",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"mesaId\": 1,\n  \"usuarioId\": 1\n}"
+        },
+        "url": "{{baseUrl}}/api/comandas"
+      }
+    },
+    {
+      "name": "5. Adicionar item",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"produtoId\": 1,\n  \"quantidade\": 2\n}"
+        },
+        "url": "{{baseUrl}}/api/comandas/1/itens"
+      }
+    },
+    {
+      "name": "6. Listar comandas abertas",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/comandas/abertas"
+      }
+    },
+    {
+      "name": "7. Fechar comanda",
+      "request": {
+        "method": "PUT",
+        "url": "{{baseUrl}}/api/comandas/1/fechar"
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" }
+  ]
+}
